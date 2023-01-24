@@ -16,7 +16,10 @@ export class GopsGame {
 
   play() {
     while (this.scoreCards.hasCards()) {
-      this.playTurn()
+      const scoreCard = this.scoreCards.getRandomCard()
+      const player1Card = this.player1.selectCard(scoreCard)
+      const player2Card = this.player2.selectCard(scoreCard)
+      this.playTurn(scoreCard, player1Card, player2Card)
       this.showPlayerScores()
     }
 
@@ -40,16 +43,16 @@ export class GopsGame {
     console.log()
   }
 
-  private playTurn() {
+  private playTurn(scoreCard: Card, player1Card: Card, player2Card: Card) {
     this.turn++
 
-    const scoreCard = this.scoreCards.popRandomCard()
+    this.scoreCards.removeCard(scoreCard)
     this.revealedCards.unshift(scoreCard)
 
     console.log(`Turn ${this.turn} with bounty:`, scoreCard)
 
-    const card1 = this.player1.playCard(scoreCard)
-    const card2 = this.player2.playCard(scoreCard)
+    const card1 = this.player1.playCard(player1Card)
+    const card2 = this.player2.playCard(player2Card)
 
     console.log('Player\'s bet:', card1, 'vs', card2)
 

@@ -6,15 +6,10 @@ export class Cards {
     this.cards = Card.denominations.map(d => new Card(d))
   }
 
-  popRandomCard(): Card {
-    if (!this.hasCards()) throw 'deck of cards is empty'
-
+  getRandomCard() : Card {
     const randomIndex = Math.floor(Math.random() * this.cards.length)
-    const card = this.cards[randomIndex]
-    this.cards.splice(randomIndex, 1)
-
-    // @ts-ignore checked by this.hasCards()
-    return card
+    // @ts-ignore
+    return this.cards[randomIndex]
   }
 
   removeCard(card: Card) {

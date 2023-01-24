@@ -13,20 +13,24 @@ export abstract class Player {
     return this.score
   }
 
-  abstract playCard(scoreCard: Card): Card
+  playCard(card: Card): Card {
+    this.cards.removeCard(card)
+    return card
+  }
+
+  abstract selectCard(scoreCard: Card): Card
 }
 
 export class RandomPlayer extends Player {
 
-  playCard(_: Card): Card {
-    return this.cards.popRandomCard()
+  selectCard(_: Card): Card {
+    return this.cards.getRandomCard()
   }
 }
 
 export class EqualPlayer extends Player {
 
-  playCard(scoreCard: Card): Card {
-    this.cards.removeCard(scoreCard)
+  selectCard(scoreCard: Card): Card {
     return scoreCard
   }
 }
